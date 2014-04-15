@@ -3,7 +3,7 @@ module Sequel
     module PgTrgm
       module DatasetMethods
         def text_search(column, query)
-          where("#{column} % #{Sequel::Model.db.literal query}").order_by{ Sequel.desc(similarity(column, query)) }
+          where("? % ?", column, query).reverse_order{ similarity(column, query) }
         end
       end
     end
