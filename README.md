@@ -5,37 +5,48 @@ Sequel plugin for Postgres' [pg_trgm](http://www.postgresql.org/docs/9.1/static/
 
 ##Installation
 
-````ruby
+```ruby
 gem install sequel-pg-trgm
-````
+```
+
+Install the pg_trgm extension in Postgres:
+```bash
+psql
+> CREATE EXTENSION pg_trgm;
+```
+
 
 ##Usage
-sequel-pg-trgm creates a dataset method, and a few helpers for doing the database setup in migrations.
+sequel-pg-trgm creates a dataset method and a helper for creating an index in migrations.
 
 To create the index column for searching, create a new migration like the following:
 
-````ruby
+```ruby
 Sequel.migration do
   up do
     extension :pg_trgm
-    add_extension :pg_trgm
     add_pg_trgm(:foods, :name)
   end
 
   down do
     extension :pg_trgm
     drop_pg_trgm(:foods, :name)
-    drop_extension :pg_trgm
   end
 end
-````
+```
+
+```ruby
+class Food < Sequel::Model
+  plugin :pg_trgm
+end
+```
 
 ###Querying
 If you have an application that lets a user search for foods, the query to search the name column on the `Food` model would be:
 
-````ruby
+```ruby
 Food.dataset.text_search(:name, 'Banana Pancakes')
-````
+```
 
 ##Notes:
 Will only work for Postgres databases.  Right now, all results are ordered by their similarity to the query.
