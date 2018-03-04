@@ -3,7 +3,7 @@ sequel-pg-trgm
 
 Sequel plugin for Postgres' [pg_trgm](http://www.postgresql.org/docs/9.1/static/pgtrgm.html).
 
-##Installation
+## Installation
 
 ```ruby
 gem install sequel-pg-trgm
@@ -16,7 +16,7 @@ psql
 ```
 
 
-##Usage
+## Usage
 sequel-pg-trgm creates a dataset method and a helper for creating an index in migrations.
 
 To create the index column for searching, create a new migration like the following:
@@ -41,20 +41,20 @@ class Food < Sequel::Model
 end
 ```
 
-###Querying
+### Querying
 If you have an application that lets a user search for foods, the query to search the name column on the `Food` model would be:
 
 ```ruby
 Food.dataset.text_search(:name, 'Banana Pancakes')
 ```
 
-##Notes:
+## Notes:
 Will only work for Postgres databases.  Right now, all results are ordered by their similarity to the query.
 
-###pg_trgm search threshold
+### pg_trgm search threshold
 Postgres' pg_trgm has a default threshold of 0.3, and will not return results if any results do not match at least that percentage.
 
-####Example:
+#### Example:
 
 If you are trying to get the Food with name 'Banana Pancakes', you may expect to get that back when searching 'ba' or 'ban', but you will not.
 
