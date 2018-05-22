@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'sequel-pg-trgm'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.date = '2014-04-13'
   s.summary = 'sequel-pg-trgm'
   s.authors = ['Mitchell Henke']
