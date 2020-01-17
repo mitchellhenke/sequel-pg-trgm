@@ -67,7 +67,7 @@ Food.dataset.text_search(:name, 'bana').first
 # => <Food @values={:id=>12, :name=>"Banana Pancakes"}>
 ```
 
-However, if you set the limit to be lower, say 0.1, you will get results for less accurate searches.  It seems to be set on connection, so just calling ``select set_limit(0.1);`` once after connecting won't guarantee the value is always going to be set.  I usually call it in Sequel's after_connect hook to solve this.
+However, if you set the limit to be lower, say 0.1, you will get results for less accurate searches.  It seems to get set per connection, so just calling ``select set_limit(0.1);`` once after connecting won't guarantee the value is always going to be set. Calling it in Sequel's after_connect hook usually solves this.
 
 ```ruby
 after_connect = proc do |connection|
